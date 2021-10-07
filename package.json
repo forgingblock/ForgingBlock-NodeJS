@@ -1,0 +1,46 @@
+{
+  "name": "forgingblock.js",
+  "version": "0.1.0",
+  "description": "The Official ForgingBlock Library for Node.js",
+  "keywords": [
+    "API",
+    "bitcoin",
+    "forgingblock",
+    "cryptocurrencies",
+    "payments"
+  ],
+  "engines": {
+    "node": ">=8.17.0",
+    "npm": ">=5.6.0"
+  },
+  "homepage": "https://github.com/forgingblock/ForgingBlock-NodeJS",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/forgingblock/ForgingBlock-NodeJS.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint lib/** test/** index.js"
+  },
+  "author": "ForgingBlock",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "ethers": "^5.4.7",
+    "lodash": "4.17.19",
+    "object-assign": "2.0.0",
+    "promise": "^8.0.1",
+    "request": "^2.88.2",
+    "secure-compare": "^3.0.1"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "eslint": "4.18.2",
+    "mocha": "^7.1.1",
+    "nock": "^12.0.3",
+    "nyc": "^15.0.1"
+  },
+  "directories": {
+    "lib": "./lib"
+  }
+}
