@@ -1,9 +1,10 @@
 # ForgingBlock
 
+ForgingBlock is a peer-to-peer cryptocurrency payment system that facilitates developers in providing infrastructure similar to what is offered within the credit card payment industry. ForgingBlock offers APIs, libraries, and Ecommerce plugins to assist merchants and developers - who are familiar with the credit payment process – in adopting cryptocurrency, L2 networks & stable coins as a payment method with a minimal learning curve and easy adaptability.
+
 The official Node.js library for the [ForgingBlock API](https://api.forgingblock.io/docs/).
 
 # Table of contents
-
    * [Node.js Versions](#node.js-version)
    * [Documentation](#documentation)
    * [Installation](#installation)
@@ -131,7 +132,7 @@ Sale.all({}, function (error, response) {
 });
 ```
 // OR you can pass the status parameter to get only the paid invoices
-```
+``` js
 Sale.all({ status: 'paid' }, function (error, response) {
   console.log(error);
   console.log(response);
