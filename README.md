@@ -52,7 +52,10 @@ npm install forgingblock.js --save
 var forgingblock = require('forgingblock.js');
 var Client = forgingblock.Client;
 
-Client.init(Trade, Token);
+Client.init({
+  trade: <trade>, 
+  token: <token>
+});
 ```
 ## Checkouts 
 [Checkouts API docs](https://api.forgingblock.io/docs/#item-payment-urls--checkout-)
