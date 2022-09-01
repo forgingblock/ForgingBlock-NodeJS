@@ -25,19 +25,30 @@ To start using this library register an account on [ForgingBlock](https://dash.f
 You will find your ``Trade`` and ``Token`` keys from Settings.
 
 Next initialize a ``Client`` for interacting with the API. The required parameters to initialize a client are ``Trade`` and ``Token``, however, you can also pass in ``baseUrl``, ``apiVersion``  and ``timeout``.
-Parameters can be also be set post-initialization:
-``` js
-var forgingblock = require('forgingblock.js');
-var Client = forgingblock.Client;
 
-var clientObj = Client.init(Trade, Token);
-clientObj.setRequestTimeout(3000);
+``` js
+const forgingblock = require('forgingblock.js');
+const Client = forgingblock.Client;
+const Sale = forgingblock.resources.Sale;
+const Balance = forgingblock.resources.Balance;
+
+Client.init({
+  trade: <trade>, 
+  token: <token>
+});
 ```
 
 The API resource class provides the following static methods: ``list, all, create, retrieve, updateById, deleteById``.  Additionally, the API resource class also provides the following instance methods: ``save, delete, insert, update``.
 
 Each API method returns an ``ApiResource`` which represents the JSON response from the API.
 When the response data is parsed into objects, the appropriate ``ApiResource`` subclass will automatically be used.
+
+Parameters can be also be set post-initialization:
+
+``` js
+var clientObj = Client.init(Trade, Token);
+clientObj.setRequestTimeout(3000);
+```
 
 
 ## Installation
@@ -100,7 +111,7 @@ var newParams = {
   item: '829f8bd302d0f2b24e8fe9b6d23ad494' // item or fund id is required
 };
 
-Checkout.update(<checkout_id>, newParams, function (error, response) {
+Checkout.update(newParams, function (error, response) {
   console.log(error);
   console.log(response);
 });
