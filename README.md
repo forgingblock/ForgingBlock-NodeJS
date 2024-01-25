@@ -80,7 +80,7 @@ var Checkout = forgingblock.resources.Checkout;
 ### Retrieve
 checkout_type is of type string, and can accept either "product" or "donation"
 ``` js
-Checkout.retrieve(<checkout_id>, <checkout_type [product | donation]>, function (error, response) {
+Checkout.retrieve(<checkout_id>, <checkout_type [ product | donation ]>, function (error, response) {
   console.log(error);
   console.log(response);
 });
@@ -96,8 +96,15 @@ var checkoutData = {
   count: 2,
   name: 'IPhone'
 };
+```
 
-Checkout.create(checkoutData, <checkout_type [product | donation]>,function (error, response) {
+**IPN (Instant Payment Notification)**
+As a developer, you want to get notification on events when a payment is completed or rejected. That's where IPN (Instant Payment Notification) come in handy. IPN helps in receiving the success/error messages with payment status from the ForgingBlock server to your server.
+
+Provide `ipn` parameter with url (starting `https://` or `http://`) in order to receive IPN after invoice is expired.
+
+```
+Checkout.create(checkoutData, <checkout_type [ product | donation ]>, <ipn [ url ]>, function (error, response) {
   console.log(error);
   console.log(response);
 });
@@ -163,18 +170,12 @@ var forgingblock = require('forgingblock.js');
 var Balance = forgingblock.resources.Balance;
 ```
 
-### Get all balances
-If you are using `Single Wallet` connection in your dashboard, you can simply call the `all` method and that will give you all the balances
+### Get balances
+
+Display balances, multi wallet only (default)
+
 ``` js
 Balance.all({}, function (error, list) {
-  console.log(error);
-  console.log(list);
-});
-```
-
-If you are using `Multi Wallet` settings, you have to pass that multiwallet flag as below
-``` js
-Balance.all({ multiwallet: true }, function (error, list) {
   console.log(error);
   console.log(list);
 });
