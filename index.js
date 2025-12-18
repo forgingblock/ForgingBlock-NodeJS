@@ -1,7 +1,6 @@
 var resources = {
 	Sale: require('./lib/Resources/Sale'),
-	Checkout: require('./lib/Resources/Checkout'),
-	Balance: require('./lib/Resources/Balance')
+	Checkout: require('./lib/Resources/Checkout')
 };
 
 module.exports = {

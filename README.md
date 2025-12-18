@@ -13,10 +13,6 @@ npm Links : https://www.npmjs.com/package/forgingblock.js
    * [Usage](#usage)
       * [Checkouts](#checkouts)
       * [Sales](#sales)
-      * [Balances](#balances)
-
-## Node.js versions
-Node.js v0.10.48 and above are supported.
 
 ## Documentation
 For more details visit [ForgingBlock API Docs](https://api.forgingblock.io/docs/).
@@ -161,28 +157,3 @@ Sale.all({ status: 'paid' }, function (error, response) {
   console.log(response);
 });
 ```
-
-## Balances
-
-### Load event resource class
-``` js
-var forgingblock = require('forgingblock.js');
-var Balance = forgingblock.resources.Balance;
-```
-
-### Get balances
-
-Display balances, multi wallet only (default)
-
-``` js
-Balance.all({}, function (error, list) {
-  console.log(error);
-  console.log(list);
-});
-```
-
-
-License
-----
-
-MIT
