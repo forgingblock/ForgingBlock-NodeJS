@@ -1,159 +1,86 @@
 # ForgingBlock
 
-ForgingBlock is a peer-to-peer cryptocurrency payment system that facilitates developers in providing infrastructure similar to what is offered within the credit card payment industry. ForgingBlock offers APIs, libraries, and Ecommerce plugins to assist merchants and developers - who are familiar with the credit payment process – in adopting cryptocurrency, L2 networks & stable coins as a payment method with a minimal learning curve and easy adaptability.
+ForgingBlock is a peer-to-peer cryptocurrency payment system that enables merchants and developers to accept stablecoins using APIs similar to traditional card-payment infrastructure. ForgingBlock offers APIs, libraries, and Ecommerce plugins to assist merchants and developers.
 
-The official Node.js library for the [ForgingBlock API](https://api.forgingblock.io/docs/).
+This package is the **official Node.js SDK** for the ForgingBlock API.
 
-npm Links : https://www.npmjs.com/package/forgingblock.js
+* API Docs: [https://api.forgingblock.io/docs/](https://api.forgingblock.io/docs/)
+* npm: [https://www.npmjs.com/package/forgingblock.js](https://www.npmjs.com/package/forgingblock.js)
 
-# Table of contents
-   * [Node.js Versions](#node.js-version)
-   * [Documentation](#documentation)
-   * [Installation](#installation)
-   * [Usage](#usage)
-      * [Checkouts](#checkouts)
-      * [Sales](#sales)
+## Requirements
 
-## Documentation
-For more details visit [ForgingBlock API Docs](https://api.forgingblock.io/docs/).
+* Node.js **>= 18**
+* A ForgingBlock account
+* An **API key** generated from the dashboard
 
-To start using this library register an account on [ForgingBlock](https://dash.forgingblock.io/).
-You will find your ``Trade`` and ``Token`` keys from Settings.
+## Getting an API key
 
-Next initialize a ``Client`` for interacting with the API. The required parameters to initialize a client are ``Trade`` and ``Token``, however, you can also pass in ``baseUrl``, ``apiVersion``  and ``timeout``.
-
-``` js
-const forgingblock = require('forgingblock.js');
-const Client = forgingblock.Client;
-const Sale = forgingblock.resources.Sale;
-const Balance = forgingblock.resources.Balance;
-
-Client.init({
-  trade: <trade>, 
-  token: <token>
-});
-```
-
-The API resource class provides the following static methods: ``list, all, create, retrieve, updateById, deleteById``.  Additionally, the API resource class also provides the following instance methods: ``save, delete, insert, update``.
-
-Each API method returns an ``ApiResource`` which represents the JSON response from the API.
-When the response data is parsed into objects, the appropriate ``ApiResource`` subclass will automatically be used.
-
-Parameters can be also be set post-initialization:
-
-``` js
-var clientObj = Client.init(Trade, Token);
-clientObj.setRequestTimeout(3000);
-```
-
+1. Log in to the ForgingBlock dashboard
+2. Go to **Account Settings → Integrations → API Token**
+3. Generate an API key
+4. Store it securely (environment variable recommended)
 
 ## Installation
 
-Install with ``npm``:
-``` sh
-npm install forgingblock.js --save
+```sh
+npm install forgingblock.js
 ```
 
 ## Usage
-``` js
-var forgingblock = require('forgingblock.js');
-var Client = forgingblock.Client;
 
-Client.init({
-  trade: <trade>, 
-  token: <token>
-});
-```
-## Checkouts 
-[Checkouts API docs](https://api.forgingblock.io/docs/#item-payment-urls--checkout-)
+### Initialize SDK
 
+```js
+import { forgingblock } from 'forgingblock.js'
 
-### Load checkout resource class
-``` js
-var forgingblock = require('forgingblock.js');
-var Checkout = forgingblock.resources.Checkout;
-```
-### Retrieve
-checkout_type is of type string, and can accept either "product" or "donation"
-``` js
-Checkout.retrieve(<checkout_id>, <checkout_type [ product | donation ]>, function (error, response) {
-  console.log(error);
-  console.log(response);
-});
-```
-### Create
-checkout_type is of type string, and can accept either "product" or "donation"
-``` js
-var checkoutData = {
-  amount: 550,
-  currency: 'usd',
-  description: 'Description for the product',
-  email: 'test@fastmail.mx',
-  count: 2,
-  name: 'IPhone'
-};
+const fb = forgingblock({
+  apiKey: process.env.FORGINGBLOCK_API_KEY
+})
 ```
 
-**IPN (Instant Payment Notification)**
-As a developer, you want to get notification on events when a payment is completed or rejected. That's where IPN (Instant Payment Notification) come in handy. IPN helps in receiving the success/error messages with payment status from the ForgingBlock server to your server.
+## Orders
 
-Provide `ipn` parameter with url (starting `https://` or `http://`) in order to receive IPN after invoice is expired.
+### Create order
 
-```
-Checkout.create(checkoutData, <checkout_type [ product | donation ]>, <ipn [ url ]>, function (error, response) {
-  console.log(error);
-  console.log(response);
-});
-```
-### Update
-``` js
-var newParams = {
-  description: 'thebesttool',
-  name: 'product1',
-  count: 12,
-  item: '829f8bd302d0f2b24e8fe9b6d23ad494' // item or fund id is required
-};
+*Order support optional merchant-side order identifier using `order_id` parameter*
 
-Checkout.update(newParams, function (error, response) {
-  console.log(error);
-  console.log(response);
-});
+Creates a new payment order.
+
+```js
+const order = await fb.orders.create({
+  price_amount: '0.01',
+  price_currency: 'USD',
+  title: 'Test order',
+  description: 'Example order'
+})
+
+console.log(order.id)
+console.log(order.invoice_url) // invoice lifetime 20 minutes
+console.log(order.checkout_url) // generates new invoice using same order data
 ```
 
-### Get all checkouts
-``` js
-Checkout.all({}, function (error, list) {
-  console.log(error);
-  console.log(list);
-});
-```
-## Sales
-[Sales API docs](https://api.forgingblock.io/docs/#invoices-history)
+### List orders
 
-### Load Sale resource class
-``` js
-var forgingblock = require('forgingblock.js');
-var Sale = forgingblock.resources.Sale;
-```
-### Retrieve
-``` js
-Sale.retrieve(<invoiceId>, function (error, response) {
-  console.log(error);
-  console.log(response);
-});
+Returns a paginated list of orders (100 per page).
+
+```js
+const list = await fb.orders.list({ page: 1 })
+
+console.log(list.current_page)
+console.log(list.total_orders)
+console.log(list.orders)
 ```
 
-### Get all sales
-``` js
-Sale.all({}, function (error, response) {
-  console.log(error);
-  console.log(response);
-});
+### Get order by ID
+
+Retrieves full details for a single order.
+
+```js
+const order = await fb.orders.get('<order_id>')
+
+console.log(order.status)
+console.log(order.price_amount)
+console.log(order.crypto_amount)
+console.log(order.customerInfo)
 ```
-// OR you can pass the status parameter to get only the paid invoices
-``` js
-Sale.all({ status: 'paid' }, function (error, response) {
-  console.log(error);
-  console.log(response);
-});
-```
+
