@@ -4,8 +4,8 @@ ForgingBlock is a peer-to-peer cryptocurrency payment system that enables mercha
 
 This package is the **official Node.js SDK** for the ForgingBlock API.
 
-* API Docs: [https://api.forgingblock.io/docs/](https://api.forgingblock.io/docs/)
-* npm: [https://www.npmjs.com/package/forgingblock.js](https://www.npmjs.com/package/forgingblock.js)
+* [API Docs](https://forgingblock.readme.io/reference/forgingblock-payment-api/)
+* [npm](https://www.npmjs.com/package/forgingblock.js)
 
 ## Requirements
 
