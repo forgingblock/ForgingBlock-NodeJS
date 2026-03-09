@@ -1,6 +1,6 @@
 {
   "name": "forgingblock.js",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "The Official ForgingBlock Library for Node.js",
   "type": "module",
   "exports": {
