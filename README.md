@@ -15,7 +15,7 @@ This package is the **official Node.js SDK** for the ForgingBlock API.
 
 ## Getting an API key
 
-1. Log in to the ForgingBlock dashboard
+1. Log in to the ForgingBlock [dashboard](https://dash.forgingblock.io/)
 2. Go to **Account Settings → Integrations → API Token**
 3. Generate an API key
 4. Store it securely (environment variable recommended)
